@@ -41,7 +41,7 @@ for entry in root.findall("a:entry", ns):
         "authors": ", ".join(authors),
     })
 
-# Write JS file that can be loaded via <script src="..."> (no CORS issues)
+# IMPORTANT: write a JS file (loads via <script src=...> with no CORS/fetch)
 payload = "window.ARXIV_PAPERS = " + json.dumps(papers, ensure_ascii=False) + ";"
 with open("papers.js", "w", encoding="utf-8") as f:
     f.write(payload)
