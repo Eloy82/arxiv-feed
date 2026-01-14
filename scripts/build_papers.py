@@ -41,7 +41,9 @@ for entry in root.findall("a:entry", ns):
         "authors": ", ".join(authors),
     })
 
-with open("papers.json", "w", encoding="utf-8") as f:
-    json.dump(papers, f, ensure_ascii=False, indent=2)
+# Write JS file that can be loaded via <script src="..."> (no CORS issues)
+payload = "window.ARXIV_PAPERS = " + json.dumps(papers, ensure_ascii=False) + ";"
+with open("papers.js", "w", encoding="utf-8") as f:
+    f.write(payload)
 
-print(f"Wrote {len(papers)} papers to papers.json")
+print(f"Wrote {len(papers)} papers to papers.js")
